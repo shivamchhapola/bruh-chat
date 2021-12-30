@@ -1,6 +1,55 @@
 .chat_main{
     display: flex;
+    flex-direction: column;
     flex: 0.75;
-    background-color: gray;
+    background-color: #36393f;
     height: 100vh;
+}
+
+.chat_header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    border-bottom: 1px solid #000000;
+    padding: 20px;
+}
+
+.chat_header_channelName > h3{
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat_header_channelName > h3 > span{
+    padding-right: 10px;
+}
+
+.chat_header_other{
+    display: flex;
+    flex: 0.4;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat_header_other > input{
+    position: relative;
+    left: 15%;
+    opacity: 0.3;
+    border: none;
+    line-height: 170%;
+    width: 55%;
+    border-radius: 5px;
+}
+
+.chatroom{
+    flex: 1;
+    color: white;
+}
+
+.chat_footer{
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #000000;
+    padding: 19.5px;
+    color: white;
 }

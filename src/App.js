@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="app">
       <Sidebar />
-      <Chat />
+      <Chat CurrentChannelName="General 1"/>
     </div>
   );
 }
