@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: lightgray;
     border-bottom: 1px solid #000000;
     padding: 20px;
 }
@@ -43,13 +43,37 @@
 
 .chatroom{
     flex: 1;
-    color: white;
+    color: lightgray;
+    overflow: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    padding: 0 15% 0 20px;
+}
+
+.chatroom::-webkit-scrollbar{
+    display: none;
 }
 
 .chat_footer{
+    position: relative;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    border-top: 1px solid #000000;
-    padding: 19.5px;
-    color: white;
+    color: lightgray;
+    background-color: #40444b;
+    align-items: center;
+    border-radius: 12px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 7px;
+    margin: 0 15px 25px 15px;
+}
+
+.msg_input{
+    flex: 1;
+    border: none;
+    background-color: transparent;
+    color: lightgray;
+    margin: 7px;
+    font-size: medium;
 }

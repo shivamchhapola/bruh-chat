@@ -10,7 +10,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: white;
+    color: lightgray;
     border-bottom: 1px solid #000000;
     padding: 20px;
 }
@@ -24,7 +24,7 @@
 }
 
 .sidebar_addchannel:hover{
-    color: white;
+    color: lightgray;
     transition: all 0.5s ease-in-out 0s;
     transform: rotate(90deg);
 }
@@ -47,7 +47,7 @@
     justify-content: space-between;
     border-top: 1px solid #000000;
     padding: 10px;
-    color: white;
+    color: lightgray;
 }
 
 .sidebar_profile{
