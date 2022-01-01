@@ -1,11 +1,10 @@
 import React from 'react';
 import { Add, ExpandMore, Headset, Mic, Settings } from '@material-ui/icons';
 import { Avatar } from '@material-ui/core';
-
 import SidebarChannel from './SidebarChannel';
 import './Sidebar.css';
 
-export default function Sidebar() {
+export default function Sidebar({user}) {
     return (
         <div className='sidebar_main'>
             <div className="sidebar_top">
@@ -21,15 +20,15 @@ export default function Sidebar() {
                     <Add className = "sidebar_addchannel" />
                 </div>
                 <div className="sidebar_channels">
-                    <SidebarChannel channelName = "General 1"/>
+                    <SidebarChannel channelName="General 1"/>
                 </div>
             </div>
             <div className="sidebar_bottom">
                 <div className="sidebar_profile">
-                    <Avatar src="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" />
+                    <Avatar src={user.photoURL}/>
                     <div className="sidebar_profileName">
-                        <h5>Shivam</h5>
-                        <h6>@shivam</h6>
+                        <h5>{user.displayName.split(" ")[0]}</h5>
+                        <h6>#{user.uid.substring(0, 8)}</h6>
                     </div>
                 </div>
                 <div className="sidebar_bottIcons">

@@ -1,9 +1,44 @@
 import { Search, Notifications, Help, EmojiEmotions, Gif, Image } from '@material-ui/icons'
-import React from 'react';
+import React, { useState, useEffect}from 'react';
 import ChatMsg from './ChatMsg';
 import './Chat.css';
+import db, { getUser } from './firebase';
+import { collection, limit, orderBy, query, onSnapshot, addDoc, serverTimestamp} from '@firebase/firestore';
 
 export default function Chat({CurrentChannelName}) {
+
+    const [msgs, setMsgs] = useState(null)
+    const [typeMsgVal, setMsgVal] = useState('');
+
+    const q = query(
+            collection(db, "channels/General 1/Messages")
+            , orderBy("createdAt")
+            , limit(25)
+    );
+
+    const sendMsg = async (e) => {
+        e.preventDefault();
+        const { uid, photoURL, displayName } = getUser();
+        const msgRef = collection(db, "channels", "General 1", "Messages");
+        await addDoc(msgRef, {
+            user: displayName.split(" ")[0],
+            uid,
+            photoURL,
+            text: typeMsgVal,
+            createdAt: serverTimestamp()
+        });
+        setMsgVal('');
+    }
+
+    useEffect(() => {
+        onSnapshot(q, (qSnap) => {
+            setMsgs(qSnap.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            })));
+        });
+    }, [q]);
+
     return (
         <div className='chat_main'>
             <div className="chat_header">
@@ -20,44 +55,21 @@ export default function Chat({CurrentChannelName}) {
             </div>
 
             <div className="chatroom">
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Bruh" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl="https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name="Shivam" timestamp="69/69/69" text="Does multiline text works bruh bradgkjashdkhfdksadhgfkashfdklahflksasdasdaasdfasfa sadfasdffasdfas dfsa gkgsadjfgasjdfsdfvjhasdgf jsagdf sagdjf hsadgj fasf hgsdf sgdfh asdg jhasdh jdvsj dfj sa" />
-                <ChatMsg pfpurl = "https://lh3.googleusercontent.com/a-/AOh14GjQtTw06FhutGLuLcj3nBtjyVG8eNSelgzfxL086A=s288-p-rw-no" name = "Shivam" timestamp="69/69/69" text = "yes it does" />
+                {
+                    msgs && msgs.map((msg) => <ChatMsg pfpurl={msg.photoURL} name={msg.user} timestamp={msg.createdAt} text={msg.text} key={msg.id} />)
+                }
             </div>
-
-
             <div className="chat_footer">
-                <input className="msg_input" placeholder="Type Message here" />
+                <form onSubmit={sendMsg}>
+                    <input className="msg_input" placeholder="Bruh!" value={typeMsgVal} onChange={(e) => setMsgVal(e.target.value)}/>
+                <button type="submit" disabled={!typeMsgVal}>Send msg</button>
+                </form>
                 <div className="footer_icons">
                     <EmojiEmotions />
                     <Gif />
                     <Image />
                 </div>
             </div>
-
-
         </div>
     );
 }

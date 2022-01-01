@@ -1,7 +1,7 @@
 .login_main{
     display: flex;
     background-color: #21D4FD;
-    background-image: linear-gradient(19deg, #21D4FD 0%, #B721FF 100%);
+    background-image: linear-gradient(19deg, #2f3136 0%, #000000 100%);
     width: 100%;
     height: 100vh;
     justify-content: center;
@@ -10,13 +10,13 @@
 
 .login_cont{
     background-color: #485461;
-    background-image: linear-gradient(315deg, #485461 0%, #28313b 74%);
+    background-image: linear-gradient(315deg, #36393f 0%, #2f3136 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 10px;
-    width: auto;
-    height: 40%;
+    width: fit-content;
+    height: fit-content;
     color: white;
     justify-content: space-between;
     padding: 20px;
@@ -30,7 +30,7 @@
 
 .login_cont > button{
     display: block;
-    background-image: linear-gradient(to right, #DA22FF 0%, #9733EE  51%, #DA22FF  100%);
+    background-image: linear-gradient(to right, #647dee 0%, #7f53ac 51%, #647dee 100%);
     background-size: 200% auto;
     margin-bottom: 40px;
     line-height: 250%;
