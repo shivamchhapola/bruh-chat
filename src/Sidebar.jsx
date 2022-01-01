@@ -1,8 +1,9 @@
 import React from 'react';
-import { Add, ExpandMore, Headset, Mic, Settings } from '@material-ui/icons';
+import { Add, ExpandMore, Headset, PowerOff, Settings } from '@material-ui/icons';
 import { Avatar } from '@material-ui/core';
 import SidebarChannel from './SidebarChannel';
 import './Sidebar.css';
+import { signOutApp } from './firebase';
 
 export default function Sidebar({user}) {
     return (
@@ -32,9 +33,9 @@ export default function Sidebar({user}) {
                     </div>
                 </div>
                 <div className="sidebar_bottIcons">
-                    <Mic />
-                    <Headset />
                     <Settings />
+                    <Headset />
+                    <PowerOff onClick={signOutApp}/>
                 </div>
             </div>
         </div>
