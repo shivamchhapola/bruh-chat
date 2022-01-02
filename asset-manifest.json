@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/bruh-chat/static/css/main.d06b44a0.css",
+    "main.js": "/bruh-chat/static/js/main.e6a38f4d.js",
+    "index.html": "/bruh-chat/index.html",
+    "main.d06b44a0.css.map": "/bruh-chat/static/css/main.d06b44a0.css.map",
+    "main.e6a38f4d.js.map": "/bruh-chat/static/js/main.e6a38f4d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d06b44a0.css",
+    "static/js/main.e6a38f4d.js"
+  ]
+}
